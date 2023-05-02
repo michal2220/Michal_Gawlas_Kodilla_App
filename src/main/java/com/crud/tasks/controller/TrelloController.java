@@ -29,26 +29,4 @@ public class TrelloController {
     public ResponseEntity<CreatedTrelloCard> createTrelloCard (@RequestBody TrelloCardDto trelloCardDto) {
         return ResponseEntity.ok(trelloClient.createNewCard(trelloCardDto));
     }
-
-
-    /* notatka dla mnie - tak miałem wysłane zadanie 22.1
-    w module zmieniam tą metdodę
-
-
-    *     @GetMapping("boards")
-    private void getTrelloBoards() {
-
-        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
-
-        for (TrelloBoardDto trelloBoardDto : trelloBoards) {
-
-            if (trelloBoardDto.getName().contains("Kodilla") &&
-                    trelloBoardDto.getId() != null &&
-                    trelloBoardDto.getName() != null) {
-
-                System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
-            }
-        }
-    }
-    */
 }
