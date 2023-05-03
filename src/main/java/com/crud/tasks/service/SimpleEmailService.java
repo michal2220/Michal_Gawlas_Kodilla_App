@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static java.util.Optional.ofNullable;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -21,9 +23,6 @@ public class SimpleEmailService {
         log.info("Starting email preparation...");
 
         try {
-            if (mail.getToCc().equals("")) {
-                log.info("No additional mail receivers ");
-            }
             SimpleMailMessage mailMessage = createMailMessage(mail);
             javaMailSender.send(mailMessage);
             log.info("Email has been sent.");
@@ -38,7 +37,9 @@ public class SimpleEmailService {
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
-        mailMessage.setCc(mailMessage.getCc());
+        if (ofNullable(mail.getToCc()).isPresent()) {
+            mailMessage.setCc(mail.getToCc());
+        }
         return mailMessage;
     }
 }
