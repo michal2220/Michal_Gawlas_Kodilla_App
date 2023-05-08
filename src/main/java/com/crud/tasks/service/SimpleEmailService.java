@@ -40,6 +40,9 @@ public class SimpleEmailService {
         if (ofNullable(mail.getToCc()).isPresent()) {
             mailMessage.setCc(mail.getToCc());
         }
+        if (ofNullable(mail.getToCc()).isEmpty()) {
+            log.info("No toCC");
+        }
         return mailMessage;
     }
 }
