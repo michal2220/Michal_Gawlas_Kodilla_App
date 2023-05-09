@@ -21,24 +21,16 @@ public class EmailScheduler {
     public void sendInformationEmail() {
         long size = taskRepository.count();
 
-        if (size == 1) {
-            simpleEmailService.send(
-                    new Mail(
-                            adminConfig.getAdminMail(),
-                            SUBJECT,
-                            "Currently in Your database you got: " + size + " task",
-                            null
-                    )
-            );
-        } else {
-            simpleEmailService.send(
-                    new Mail(
-                            adminConfig.getAdminMail(),
-                            SUBJECT,
-                            "Currently in Your database you got: " + size + " tasks",
-                            null
-                    )
-            );
-        }
+        String pluralOrSingular = size == 1 ? " task" : " tasks";
+
+        simpleEmailService.send(
+                new Mail(
+                        adminConfig.getAdminMail(),
+                        SUBJECT,
+                        "Currently in Your database you got: " + size + pluralOrSingular,
+                        null
+                )
+        );
     }
 }
+
