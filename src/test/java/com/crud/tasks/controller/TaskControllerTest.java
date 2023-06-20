@@ -73,6 +73,6 @@ class TaskControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andDo(print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
