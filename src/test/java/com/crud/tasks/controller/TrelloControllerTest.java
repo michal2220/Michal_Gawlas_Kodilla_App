@@ -22,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringJUnitWebConfig
 @WebMvcTest(TrelloController.class)
@@ -85,6 +86,7 @@ class TrelloControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id",Matchers.is("232")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name",Matchers.is("Test")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.shortUrl",Matchers.is("http://test.com")));
