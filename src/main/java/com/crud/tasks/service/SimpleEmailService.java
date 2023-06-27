@@ -28,28 +28,13 @@ public class SimpleEmailService {
         log.info("Starting email preparation...");
 
         try {
-            SimpleMailMessage mailMessage = createMailMessage(mail);
-            javaMailSender.send(mailMessage);
+            javaMailSender.send(createMimeMessage(mail));
             log.info("Email has been sent.");
 
         } catch (MailException e) {
             log.error("Failed to process email sending: " + e.getMessage(), e);
         }
     }
-
-/*    private SimpleMailMessage createMailMessage(final Mail mail) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
-        if (ofNullable(mail.getToCc()).isPresent()) {
-            mailMessage.setCc(mail.getToCc());
-        }
-        if (ofNullable(mail.getToCc()).isEmpty()) {
-            log.info("No toCC");
-        }
-        return mailMessage;
-    }*/
 
     private MimeMessagePreparator createMimeMessage(final Mail mail) {
         return mimeMessage -> {
@@ -58,14 +43,5 @@ public class SimpleEmailService {
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
         };
-    }
-
-
-    private SimpleMailMessage createMailMessage(final Mail mail) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
- /*       messageHelper.setSubject(mail.getSubject());*/
-        mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()));
-        return mailMessage;
     }
 }
