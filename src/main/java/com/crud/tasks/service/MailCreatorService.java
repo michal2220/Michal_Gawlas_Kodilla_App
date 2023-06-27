@@ -14,7 +14,6 @@ public class MailCreatorService {
     private AdminConfig adminConfig;
 
     @Autowired
-    @Qualifier
     private TemplateEngine templateEngine;
 
     public String buildTrelloCardEmail(String message) {
